@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS tasks;
+
+CREATE TABLE tasks (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `status` VARCHAR(64) NOT NULL,
+    `title` VARCHAR(128) NOT NULL,
+    `description` VARCHAR(512) NOT NULL,
+    `due_date` DATE,
+    `created_at` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP(6) AS CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+);
