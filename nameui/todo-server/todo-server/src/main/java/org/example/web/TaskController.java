@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.model.Task;
 import org.example.service.TaskCommandService;
-import org.example.service.TaskCommandServiceImpl;
 import org.example.service.TaskQueryService;
 import org.example.web.vo.TaskRequest;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +37,7 @@ public class TaskController {
 
     @GetMapping
     public ResponseEntity<List<Task>> getTask() {
-        List<Task> tasks = taskQueryService.get();
+        List<Task> tasks = taskQueryService.findAll();
         return ResponseEntity.ok(tasks);
     }
 }

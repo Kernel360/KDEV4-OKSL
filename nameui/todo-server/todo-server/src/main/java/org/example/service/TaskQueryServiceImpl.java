@@ -14,7 +14,7 @@ public class TaskQueryServiceImpl implements TaskQueryService {
     private final TaskRepository taskRepository;
 
     @Override
-    public List<Task> get() {
+    public List<Task> findAll() {
         List<TaskEntity> taskEntityList = taskRepository.findAll();
         return toTaskList(taskEntityList);
     }
