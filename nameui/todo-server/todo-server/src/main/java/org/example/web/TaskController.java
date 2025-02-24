@@ -3,13 +3,18 @@ package org.example.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.model.Task;
-import org.example.service.TaskService;
+import org.example.service.TaskCommandService;
+import org.example.service.TaskCommandServiceImpl;
+import org.example.service.TaskQueryService;
 import org.example.web.vo.TaskRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -17,7 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class TaskController {
 
-    private final TaskService taskService;
+    private final TaskCommandService taskCommandService;
+    private final TaskQueryService taskQueryService;
 
     /**
      * 새로운 할 일 추가
@@ -26,7 +32,13 @@ public class TaskController {
      */
     @PostMapping
     public ResponseEntity<Task> createTask(@RequestBody TaskRequest req) {
-        Task result = taskService.add(req.getTitle(), req.getDescription(), req.getDueDate());
+        Task result = taskCommandService.add(req.getTitle(), req.getDescription(), req.getDueDate());
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Task>> getTask() {
+        List<Task> tasks = taskQueryService.get();
+        return ResponseEntity.ok(tasks);
     }
 }

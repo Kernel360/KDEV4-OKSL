@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class TaskService {
+public class TaskCommandServiceImpl implements TaskCommandService {
 
     private final TaskRepository taskRepository;
 
