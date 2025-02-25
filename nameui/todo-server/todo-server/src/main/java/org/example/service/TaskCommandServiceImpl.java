@@ -6,6 +6,7 @@ import org.example.constants.TaskStatus;
 import org.example.model.Task;
 import org.example.persist.TaskRepository;
 import org.example.persist.entity.TaskEntity;
+import org.example.utils.TaskConverterUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,7 @@ public class TaskCommandServiceImpl implements TaskCommandService {
                 .status(TaskStatus.TODO).build();
         TaskEntity saved = taskRepository.save(taskEntity);
 
-        return entityToObject(saved);
+        return TaskConverterUtil.toDto(saved);
     }
 
     @Transactional
@@ -37,7 +38,7 @@ public class TaskCommandServiceImpl implements TaskCommandService {
 
         taskEntity.update(title, description, dueDate);
 
-        return entityToObject(taskEntity);
+        return TaskConverterUtil.toDto(taskEntity);
     }
 
     @Transactional
@@ -46,7 +47,7 @@ public class TaskCommandServiceImpl implements TaskCommandService {
 
         taskEntity.updateStatus(TaskStatus.valueOf(status));
 
-        return entityToObject(taskEntity);
+        return TaskConverterUtil.toDto(taskEntity);
     }
 
     @Transactional
@@ -56,15 +57,4 @@ public class TaskCommandServiceImpl implements TaskCommandService {
         taskRepository.delete(taskEntity);
     }
 
-    private Task entityToObject(TaskEntity taskEntity) {
-        return Task.builder()
-                .id(taskEntity.getId())
-                .title(taskEntity.getTitle())
-                .description(taskEntity.getDescription())
-                .status(taskEntity.getStatus())
-                .dueDate(taskEntity.getDueDate().toString())
-                .createdAt(taskEntity.getCreatedAt().toLocalDateTime())
-                .updatedAt(taskEntity.getUpdatedAt().toLocalDateTime())
-                .build();
-    }
 }

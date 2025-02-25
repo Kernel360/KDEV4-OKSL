@@ -1,7 +1,5 @@
 package org.example.service;
 
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.example.constants.TaskStatus;
 import org.example.model.Task;
 import org.example.persist.TaskRepository;
@@ -11,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Date;
