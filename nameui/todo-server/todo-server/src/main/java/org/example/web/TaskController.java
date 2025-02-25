@@ -70,4 +70,10 @@ public class TaskController {
         Task task = taskCommandService.updateStatus(id, status);
         return ResponseEntity.ok(task);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteTask(@PathVariable Long id) {
+        taskCommandService.delete(id);
+        return ResponseEntity.ok(id + "번 일정이 정상적으로 삭제되었습니다.");
+    }
 }
