@@ -8,10 +8,7 @@ import org.example.service.TaskQueryService;
 import org.example.web.vo.TaskRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,8 +33,14 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Task>> getTask() {
+    public ResponseEntity<List<Task>> findAllTask() {
         List<Task> tasks = taskQueryService.findAll();
         return ResponseEntity.ok(tasks);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Task> getTask(@PathVariable Long id) {
+        Task task = taskQueryService.get(id);
+        return ResponseEntity.ok(task);
     }
 }

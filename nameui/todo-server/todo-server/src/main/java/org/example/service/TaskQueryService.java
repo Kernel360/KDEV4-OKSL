@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TaskQueryService {
     List<Task> findAll();
+    Task get(Long id);
 }
