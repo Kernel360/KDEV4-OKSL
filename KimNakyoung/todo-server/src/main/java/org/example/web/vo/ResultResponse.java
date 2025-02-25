@@ -8,5 +8,5 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class ResultResponse {
-    private boolean isSuccess;
+    private boolean isSuccess; //
 }

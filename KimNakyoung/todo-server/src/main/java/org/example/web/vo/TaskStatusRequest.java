@@ -7,5 +7,5 @@ import org.example.constants.TaskStatus;
 @Getter
 @ToString
 public class TaskStatusRequest {
-    private TaskStatus status;
+    private TaskStatus status; //
 }
