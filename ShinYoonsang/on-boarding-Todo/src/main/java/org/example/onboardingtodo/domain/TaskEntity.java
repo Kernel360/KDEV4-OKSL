@@ -5,13 +5,10 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -27,26 +24,35 @@ public class TaskEntity {
 
     private String title;
     private String description;
-    private Date dueDate;
+    private LocalDate dueDate;
 
     @Enumerated(value = EnumType.STRING)
     private TaskStatus status;
 
-    @CreationTimestamp
     @Column(insertable = false, updatable = false)
-    private Timestamp createdAt;
+    private LocalDate createdAt;
 
-    @UpdateTimestamp
     @Column(insertable = false, updatable = false)
-    private Timestamp updatedAt;
+    private LocalDate updatedAt;
 
     @Builder
-    private TaskEntity(String title, String description, Date dueDate, TaskStatus status, Timestamp createdAt, Timestamp updatedAt) {
+    private TaskEntity(String title, String description, LocalDate dueDate, TaskStatus status, LocalDate createdAt, LocalDate updatedAt) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public void updateTaskEntity(String title, String description, LocalDate dueDate, LocalDate updatedAt) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.updatedAt = updatedAt;
+    }
+
+    public void updateTaskStatus(String status) {
+        this.status = TaskStatus.fromString(status);
     }
 }
