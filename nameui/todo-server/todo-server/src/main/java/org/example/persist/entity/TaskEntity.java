@@ -2,17 +2,16 @@ package org.example.persist.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.logging.log4j.util.Strings;
 import org.example.constants.TaskStatus;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedBy;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-//import java.util.Date;
 
 @Getter
 @Setter
@@ -41,13 +40,13 @@ public class TaskEntity {
     private Timestamp updatedAt;
 
     public void update(String title, String description, LocalDate dueDate) {
-        this.title = title;
-        this.description = description;
-        this.dueDate = Date.valueOf(dueDate);
+        this.title = Strings.isEmpty(title) ? this.title:title;
+        this.description = Strings.isEmpty(description) ? this.description:description;
+        this.dueDate = Strings.isEmpty(dueDate.toString()) ? this.dueDate:Date.valueOf(dueDate);
     }
 
     public void updateStatus(TaskStatus status) {
-        this.status = status;
+        this.status = Strings.isEmpty(status.toString()) ? this.status:status;
     }
 
 }
