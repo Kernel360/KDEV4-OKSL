@@ -7,7 +7,7 @@ CREATE TABLE task (
                       description VARCHAR(128) NOT NULL,
                       due_date DATE,
                       created_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                      update_at TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                      updated_at TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                       PRIMARY KEY (id)
 );
 

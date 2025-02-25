@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
 
-    List<TaskEntity> findAllByDueDate(Date dueDate);
-    List<TaskEntity> findAllByStatus(TaskStatus status);
+    List<TaskEntity> findAllByDueDate(Date dueDate); //
+    List<TaskEntity> findAllByStatus(TaskStatus status); //
 
 }
