@@ -46,4 +46,8 @@ public class TaskEntity {
         this.dueDate = Date.valueOf(dueDate);
     }
 
+    public void updateStatus(TaskStatus status) {
+        this.status = status;
+    }
+
 }

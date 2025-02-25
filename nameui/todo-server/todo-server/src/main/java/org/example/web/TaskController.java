@@ -64,4 +64,10 @@ public class TaskController {
         Task task = taskCommandService.update(id, taskRequest.getTitle(), taskRequest.getDescription(), taskRequest.getDueDate());
         return ResponseEntity.ok(task);
     }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<Task> updateTaskStatus(@PathVariable Long id, @RequestParam String status) {
+        Task task = taskCommandService.updateStatus(id, status);
+        return ResponseEntity.ok(task);
+    }
 }

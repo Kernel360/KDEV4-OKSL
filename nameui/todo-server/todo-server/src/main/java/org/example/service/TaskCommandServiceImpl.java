@@ -40,6 +40,15 @@ public class TaskCommandServiceImpl implements TaskCommandService {
         return entityToObject(taskEntity);
     }
 
+    @Override
+    public Task updateStatus(Long id, String status) {
+        TaskEntity taskEntity = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("존재하지 않는 일정입니다."));
+
+        taskEntity.updateStatus(TaskStatus.valueOf(status));
+
+        return entityToObject(taskEntity);
+    }
+
     private Task entityToObject(TaskEntity taskEntity) {
         return Task.builder()
                 .id(taskEntity.getId())
