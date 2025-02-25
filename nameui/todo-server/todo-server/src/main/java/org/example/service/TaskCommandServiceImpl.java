@@ -7,6 +7,7 @@ import org.example.model.Task;
 import org.example.persist.TaskRepository;
 import org.example.persist.entity.TaskEntity;
 import org.example.utils.TaskConverterUtil;
+import org.example.web.vo.response.DeleteTaskResponseDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,10 +52,12 @@ public class TaskCommandServiceImpl implements TaskCommandService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public DeleteTaskResponseDto delete(Long id) {
         TaskEntity taskEntity = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("존재하지 않는 일정입니다."));
 
         taskRepository.delete(taskEntity);
+
+        return new DeleteTaskResponseDto(true);
     }
 
 }

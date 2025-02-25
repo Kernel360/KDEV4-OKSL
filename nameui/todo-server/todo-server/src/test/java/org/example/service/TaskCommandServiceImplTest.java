@@ -172,5 +172,6 @@ class TaskCommandServiceImplTest {
 
         // then
         verify(taskRepository, times(1)).delete(taskEntity);
+
     }
 }

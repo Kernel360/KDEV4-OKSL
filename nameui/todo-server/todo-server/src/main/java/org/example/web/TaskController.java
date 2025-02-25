@@ -6,6 +6,7 @@ import org.example.model.Task;
 import org.example.service.TaskCommandService;
 import org.example.service.TaskQueryService;
 import org.example.web.vo.TaskRequest;
+import org.example.web.vo.response.DeleteTaskResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -72,8 +73,8 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteTask(@PathVariable Long id) {
-        taskCommandService.delete(id);
-        return ResponseEntity.ok(id + "번 일정이 정상적으로 삭제되었습니다.");
+    public ResponseEntity<DeleteTaskResponseDto> deleteTask(@PathVariable Long id) {
+        DeleteTaskResponseDto result = taskCommandService.delete(id);
+        return ResponseEntity.ok(result);
     }
 }
