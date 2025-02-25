@@ -9,8 +9,10 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDate;
+//import java.util.Date;
 
 @Getter
 @Setter
@@ -37,5 +39,11 @@ public class TaskEntity {
     @UpdateTimestamp
     @Column(insertable = false, updatable = false)
     private Timestamp updatedAt;
+
+    public void update(String title, String description, LocalDate dueDate) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = Date.valueOf(dueDate);
+    }
 
 }

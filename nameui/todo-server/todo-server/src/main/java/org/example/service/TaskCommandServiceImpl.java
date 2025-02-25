@@ -7,6 +7,7 @@ import org.example.model.Task;
 import org.example.persist.TaskRepository;
 import org.example.persist.entity.TaskEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ public class TaskCommandServiceImpl implements TaskCommandService {
 
     private final TaskRepository taskRepository;
 
+    @Transactional
     public Task add(String title, String description, LocalDate dueDate) {
         TaskEntity taskEntity = TaskEntity.builder()
                 .title(title)
@@ -27,6 +29,15 @@ public class TaskCommandServiceImpl implements TaskCommandService {
         TaskEntity saved = taskRepository.save(taskEntity);
 
         return entityToObject(saved);
+    }
+
+    @Transactional
+    public Task update(Long id, String title, String description, LocalDate dueDate) {
+        TaskEntity taskEntity = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("존재하지 않는 일정입니다."));
+
+        taskEntity.update(title, description, dueDate);
+
+        return entityToObject(taskEntity);
     }
 
     private Task entityToObject(TaskEntity taskEntity) {
