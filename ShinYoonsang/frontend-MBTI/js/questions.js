@@ -10,6 +10,39 @@ let currentNumber = 0
 let mbti = ''
 
 function renderQuestion() {
-  const question = questions[0]
+  const question = questions[currentNumber]
+  numberEl.innerHTML = question.number
+  questionEl.innerHTML = question.question;
+  choice1El.innerHTML = question.choices[0].text
+  choice2El.innerHTML = question.choices[1].text
+  progressValueEl.style.width = (currentNumber + 1) * 10 + '%'
 }
 
+renderQuestion() 
+
+
+
+
+function nextQuestion(choiceNumber) {
+  if (currentNumber === questions.length - 1) {
+    showResultPage()
+    return
+  }
+  
+  const question = questions[currentNumber]
+  mbti = mbti + question.choices[choiceNumber].value
+  currentNumber = currentNumber + 1;
+  renderQuestion();
+}
+
+function showResultPage() {
+  location.href = '/results.html?mbti=' + mbti // QueryString
+}
+
+choice1El.addEventListener('click', function () {
+  nextQuestion(0)
+});
+
+choice2El.addEventListener('click', function () {
+  nextQuestion(1)
+});
