@@ -1,15 +1,24 @@
 package org.example.filter.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.example.filter.interceptor.OpenApi;
+import org.example.filter.model.UserRequest;
+import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RequestMapping("/api")
 @RestController
 public class UserApiController {
 
+    @OpenApi
     @PostMapping("/")
-    public void api() {
+    public UserRequest api(@RequestBody UserRequest userRequest) {
+      log.info("{}", userRequest);
+      return userRequest;
+    }
 
+    @GetMapping("/hello")
+    public void hello() {
+        log.info("hello");
     }
 }
