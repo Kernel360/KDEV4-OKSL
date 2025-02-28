@@ -636,6 +636,7 @@ exports.export = function(dest, destName, get) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _heropy = require("./core/heropy");
+var _fruitItem = require("./components/FruitItem");
 class App extends (0, _heropy.Component) {
     constructor(){
         super({
@@ -660,14 +661,19 @@ class App extends (0, _heropy.Component) {
     render() {
         console.log(this.state.fruits);
         this.el.innerHTML = /* html */ `<h1>Fruits</h1>
-    <ul>
-      ${this.state.fruits.filter((fruit)=>fruit.price < 3000).map((fruit)=>`<li>${fruit.name}</li>`).join('')}
-    </ul>`;
+    <ul></ul>`;
+        const ulEl = this.el.querySelector('ul');
+        ulEl.append(...this.state.fruits.filter((fruit)=>fruit.price < 3000).map((fruit)=>new (0, _fruitItem.FruitItem)({
+                props: {
+                    name: fruit.name,
+                    price: fruit.price
+                }
+            }).el));
     }
 }
 exports.default = App;
 
-},{"./core/heropy":"57bZf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"57bZf":[function(require,module,exports,__globalThis) {
+},{"./core/heropy":"57bZf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./components/FruitItem":"79Im4"}],"57bZf":[function(require,module,exports,__globalThis) {
 ///// Component /////
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -675,14 +681,36 @@ parcelHelpers.export(exports, "Component", ()=>Component);
 class Component {
     constructor(payload = {}){
         // tagName = null 일 시 기본값 'div'
-        const { tagName = 'div', state = {} } = payload;
+        const { tagName = 'div', state = {}, props = {} } = payload;
         this.el = document.createElement(tagName);
         this.state = state;
+        this.props = props;
         this.render();
     }
     render() {}
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["1Fqy1","gLLPy"], "gLLPy", "parcelRequire94c2")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"79Im4":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FruitItem", ()=>FruitItem);
+var _heropy = require("../core/heropy");
+class FruitItem extends (0, _heropy.Component) {
+    constructor(payload){
+        super({
+            tagName: 'li',
+            props: payload.props
+        });
+    }
+    render() {
+        this.el.innerHTML = `<span>${this.props.name}</span>
+    <span>${this.props.price}</span>`;
+        this.el.addEventListener('click', ()=>{
+            console.log(this.props.name, this.props.price);
+        });
+    }
+}
+
+},{"../core/heropy":"57bZf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["1Fqy1","gLLPy"], "gLLPy", "parcelRequire94c2")
 
 //# sourceMappingURL=index.4d6bcbeb.js.map
