@@ -4,22 +4,23 @@ export default class App extends Component {
   constructor() {
     super({
       state: {
-        inputText:''
+        fruits : [
+          {name : 'Apple', price: 1000 },
+          {name : 'Banana', price: 2000 },      
+          {name : 'Cherry', price: 3000 },  
+        ]
       }
     })
   }
   render() {
-    this.el.classList.add('search');
-    this.el.innerHTML = `<input /><button>Click!</button>`
+    console.log(this.state.fruits);
 
-    const inputEl = this.el.querySelector('input')
-    inputEl.addEventListener('input', () => {
-      this.state.inputText = inputEl.value
-    })
-
-    const buttonEl = this.el.querySelector('button')
-    buttonEl.addEventListener('click', () => {
-      console.log(this.state.inputText)
-    })
+    this.el.innerHTML = /* html */ `<h1>Fruits</h1>
+    <ul>
+      ${this.state.fruits
+        .filter(fruit => fruit.price < 3000)
+        .map(fruit => `<li>${fruit.name}</li>`)
+        .join('')}
+    </ul>`
   }
 }
