@@ -58,3 +58,34 @@ export function createRouter(routes) {
     routeRender(routes)
   }
 }
+
+///// store /////
+export class Store {
+  constructor(state) {
+    this.state = {}
+    this.observers = {}
+    for (const key in state) {
+      Object.defineProperty(this.state, key, {
+        get: () =>  state[key], // state['message'],
+        set: (val) => {
+          state[key] = val
+          // this.observers['message']()
+          this.observers[key].forEach(observer => observer(val))
+        },
+      })
+    }
+  }
+
+  // 상태 구독
+  subscribe(key, callback) {
+    // this.observers['message'] = () => {}
+      // {message: () => {}}
+    // this.observers[key] = callback
+
+
+    // {message: [() => {}, () => {}, () => {}]}
+      Array.isArray(this.observers[key]) 
+      ? this.observers[key].push(callback) 
+      : this.observers[key] = [callback]
+  }
+}
