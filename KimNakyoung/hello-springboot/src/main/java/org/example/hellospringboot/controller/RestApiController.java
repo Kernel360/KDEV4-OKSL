@@ -1,8 +1,10 @@
 package org.example.hellospringboot.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.hellospringboot.model.BookQueryParam;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class RestApiController {
@@ -89,13 +91,13 @@ public class RestApiController {
         return   "과일 : " + fruit + ", 유무 :" + f;
     }
 
-
-
-
-
-
-
-
-
+    @DeleteMapping(path = {
+            "/user/{userName}/delete",
+            "/user/{userName}/del"}) // 여러가지 가능
+    public void delete(
+            @PathVariable String userName
+    ){
+        log.info("user-name : {}", userName);
+    }
 
 }
