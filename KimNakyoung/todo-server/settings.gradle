@@ -1,0 +1,3 @@
+rootProject.name = 'todo-server'
+include ':todo-server'
+
